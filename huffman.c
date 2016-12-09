@@ -11,30 +11,30 @@ TABELA_HUFFMAN *criarTabelaHuffman(){
 
 	TABELA_HUFFMAN *tabela =(TABELA_HUFFMAN*)malloc(sizeof(TABELA_HUFFMAN)*1);
 	//tabela->vet = (ELEMENTS*)calloc(1,sizeof(ELEMENTS));
-	tabela->vet[0] = (ELEMENTS*)calloc(4,sizeof(ELEMENTS));
+	tabela->vet = (ELEMENTS*)calloc(4,sizeof(ELEMENTS));
 	tabela->n_elements = 0;
 
-	tabela->vet[0]->letter = 'A';
-	tabela->vet[0]->size_bin = 2;
-	tabela->vet[0]->bin = (char *)malloc(sizeof(char)*2);
-	tabela->vet[0]->bin[0] = '0';	
-	tabela->vet[0]->bin[1] = '1';	
-	tabela->vet[1]->letter = 'B';
-	tabela->vet[1]->size_bin = 2;
-	tabela->vet[1]->bin = (char *)malloc(sizeof(char)*2);
-	tabela->vet[1]->bin[0] = '1';	
-	tabela->vet[1]->bin[1] = '0';	
-	tabela->vet[2]->letter = 'N';
-	tabela->vet[2]->size_bin = 2;
-	tabela->vet[2]->bin = (char *)malloc(sizeof(char)*2);
-	tabela->vet[2]->bin[0] = '1';
-	tabela->vet[2]->bin[1] = '1';
-	tabela->vet[3]->letter = ' ';
-	tabela->vet[3]->size_bin = 3;
-	tabela->vet[3]->bin = (char *)malloc(sizeof(char)*3);
-	tabela->vet[3]->bin[0] = '0';	
-	tabela->vet[3]->bin[1] = '0';	
-	tabela->vet[3]->bin[2] = '1';	
+	tabela->vet[0].letter = 'A';
+	tabela->vet[0].size_bin = 2;
+	tabela->vet[0].bin = (char *)malloc(sizeof(char)*2);
+	tabela->vet[0].bin[0] = '0';	
+	tabela->vet[0].bin[1] = '1';	
+	tabela->vet[1].letter = 'B';
+	tabela->vet[1].size_bin = 2;
+	tabela->vet[1].bin = (char *)malloc(sizeof(char)*2);
+	tabela->vet[1].bin[0] = '1';	
+	tabela->vet[1].bin[1] = '0';	
+	tabela->vet[2].letter = 'N';
+	tabela->vet[2].size_bin = 2;
+	tabela->vet[2].bin = (char *)malloc(sizeof(char)*2);
+	tabela->vet[2].bin[0] = '1';
+	tabela->vet[2].bin[1] = '1';
+	tabela->vet[3].letter = ' ';
+	tabela->vet[3].size_bin = 3;
+	tabela->vet[3].bin = (char *)malloc(sizeof(char)*3);
+	tabela->vet[3].bin[0] = '0';	
+	tabela->vet[3].bin[1] = '0';	
+	tabela->vet[3].bin[2] = '1';	
 	tabela->n_elements=4;
 
 	return tabela;
@@ -124,7 +124,7 @@ NO* buildHuffmanTree(char* text){
 	}
 	printf("Nao ordenado\n");
 	for(i=0;i<n_letters;i++){
-		printf("letra %c com prob. %d\n", node_vector[i]->letters[0],node_vector[i]->prob);
+		printf("letra %c com prob. %d\n", node_vector[i].letters[0],node_vector[i].prob);
 	}
 
 	NO **heap_vector = NULL;
@@ -148,7 +148,7 @@ NO* buildHuffmanTree(char* text){
 
 	printf("\nOrdenado\n");
 	for(i=0;i<n_letters;i++){
-		printf("letra %c com prob. %d\n", node_vector[i]->letters[0],node_vector[i]->prob);
+		printf("letra %c com prob. %d\n", node_vector[i].letters[0],node_vector[i].prob);
 	}
 
 	NO* father = NULL;
@@ -160,12 +160,12 @@ NO* buildHuffmanTree(char* text){
 		correctUp(node_vector,n_letters-1);
 		printf("vetor depois de por o pai com prob = %d\n",father->prob);
 		for(i=0;i<n_letters;i++){
-			printf("letra %s com prob. %d\n", node_vector[i]->letters,node_vector[i]->prob);
+			printf("letra %s com prob. %d\n", node_vector[i].letters,node_vector[i].prob);
 		}
 		//n_letters--;
 	}	
 
-	//printf("raiz letras = %s e prob = %d\n", node_vector[0]->letters,node_vector[0]->prob);
+	//printf("raiz letras = %s e prob = %d\n", node_vector[0].letters,node_vector[0].prob);
 	print_tree(node_vector[0],0);
 	
 {}*/
@@ -178,8 +178,8 @@ int compactarHuffman(char* text, char *textCompac, TABELA_HUFFMAN *tabela){
 
 	for (i=0; i<10; i++){
 		for(j=0; j<tabela->n_elements; j++){
-			if(text[i] == tabela->vet[j]->letter){
-				lsize = tabela->vet[j]->size_bin;
+			if(text[i] == tabela->vet[j].letter){
+				lsize = tabela->vet[j].size_bin;
 				size += lsize;
 				if (size%8==0) sizeCompac++;
 				textCompac = (char *)realloc(textCompac, size*sizeof(char));
@@ -187,7 +187,7 @@ int compactarHuffman(char* text, char *textCompac, TABELA_HUFFMAN *tabela){
 					for(l=0; l<lsize; l++){
 						/* code */
 					}
-					textCompac[k] = tabela->vet[j]->bin[l]; 
+					textCompac[k] = tabela->vet[j].bin[l]; 
 				}
 			}
 		}
@@ -216,15 +216,15 @@ char *descompactarHuffman(char *textCompac, int sizeCompac, TABELA_HUFFMAN* tabe
 	char *aux;
 
 	do{
-		size = strlen(tabela->vet[j]->bin);
+		size = strlen(tabela->vet[j].bin);
 		aux = (char *)malloc(sizeof(char)*size);
 		for (i=0; i<size; i++){
 			aux[i] = textCompac[k];
 			k++;
 		}
-		if(strcmp(aux,tabela->vet[j]->bin)==0){
+		if(strcmp(aux,tabela->vet[j].bin)==0){
 			textDescompac = (char *)realloc(textDescompac, (count+1)*sizeof(char));
-			textDescompac[count]=tabela->vet[j]->letter;
+			textDescompac[count]=tabela->vet[j].letter;
 			count++;
 		}
 		else{
