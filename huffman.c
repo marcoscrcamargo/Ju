@@ -10,7 +10,8 @@
 TABELA_HUFFMAN *criarTabelaHuffman(){
 
 	TABELA_HUFFMAN *tabela =(TABELA_HUFFMAN*)malloc(sizeof(TABELA_HUFFMAN)*1);
-	tabela->vet =(TABELA_HUFFMAN*)calloc(4,sizeof(TABELA_HUFFMAN));
+	tabela->vet = (TABELA_HUFFMAN*)calloc(1,sizeof(TABELA_HUFFMAN));
+	tabela->vet[0] = (TABELA_HUFFMAN*)calloc(4,sizeof(TABELA_HUFFMAN));
 	tabela->n_elements = 0;
 
 	tabela->vet[0]->letter = 'A';
@@ -141,7 +142,7 @@ NO* buildHuffmanTree(char* text){
 		
 	}
 
-	/*
+	
 	// Ordena o Vetor de Nos
 	heapsort_(node_vector,n_letters);
 
@@ -166,8 +167,8 @@ NO* buildHuffmanTree(char* text){
 
 	//printf("raiz letras = %s e prob = %d\n", node_vector[0]->letters,node_vector[0]->prob);
 	print_tree(node_vector[0],0);
-	*/
-//{}*/
+	
+{}*/
 
 int compactarHuffman(char* text, char *textCompac, TABELA_HUFFMAN *tabela){
 
@@ -182,7 +183,10 @@ int compactarHuffman(char* text, char *textCompac, TABELA_HUFFMAN *tabela){
 				size += lsize;
 				if (size%8==0) sizeCompac++;
 				textCompac = (char *)realloc(textCompac, size*sizeof(char));
-				for (k=k, l=0; k<size, l<lsize; k++, l++){
+				for (k=k; k<size; k++){
+					for(l=0; l<lsize; l++){
+						/* code */
+					}
 					textCompac[k] = tabela->vet[j]->bin[l]; 
 				}
 			}
@@ -214,7 +218,7 @@ char *descompactarHuffman(char *textCompac, int sizeCompac, TABELA_HUFFMAN* tabe
 	do{
 		size = strlen(tabela->vet[j]->bin);
 		aux = (char *)malloc(sizeof(char)*size);
-		for (int i=0; i<size; i++){
+		for (i=0; i<size; i++){
 			aux[i] = textCompac[k];
 			k++;
 		}
