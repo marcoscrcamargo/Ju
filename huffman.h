@@ -13,7 +13,7 @@ typedef struct tabelahuffman TABELA_HUFFMAN;
 
 struct tabelahuffman{
 	int n_elements;
-	ELEMENTS** vet;
+	ELEMENTS* vet;
 };
 
 typedef struct node NO;

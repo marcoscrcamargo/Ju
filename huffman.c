@@ -10,6 +10,8 @@
 TABELA_HUFFMAN *criarTabelaHuffman(){
 
 	TABELA_HUFFMAN *tabela =(TABELA_HUFFMAN*)malloc(sizeof(TABELA_HUFFMAN)*1);
+	tabela->vet =(TABELA_HUFFMAN*)calloc(4,sizeof(TABELA_HUFFMAN));
+	tabela->n_elements = 0;
 
 	tabela->vet[0]->letter = 'A';
 	tabela->vet[0]->size_bin = 2;
@@ -32,6 +34,7 @@ TABELA_HUFFMAN *criarTabelaHuffman(){
 	tabela->vet[3]->bin[0] = '0';	
 	tabela->vet[3]->bin[1] = '0';	
 	tabela->vet[3]->bin[2] = '1';	
+	tabela->n_elements=4;
 
 	return tabela;
 }
