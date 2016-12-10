@@ -188,13 +188,15 @@ int compactarHuffman(char* text, char **textCompac, TABELA_HUFFMAN **tabela){
 	        	for (k=k; k<size; k++){
 	          		for(l=0; l<lsize; l++){
 	            		(*textCompac)[k] = (*tabela)->vet[j].bin[l];
-	            		//printf("%c\n", (*textCompac)[k]);
+	            		//printf("COMPACTA: %c\n", (*textCompac)[k]);
 	            		//exit(0);
 	          		} 
 	        	}
 	      	}
 	    }
 	}
+
+	printf("%s\n", (*textCompac));
 
 	if(size%8!=0){
 	    do{
@@ -213,16 +215,20 @@ int compactarHuffman(char* text, char **textCompac, TABELA_HUFFMAN **tabela){
 }
 
 char *descompactarHuffman(char *textCompac, int sizeCompac, TABELA_HUFFMAN* tabela){
-
+	
 	int i, j=0, k=0, size=0, count=0;
 	char *textDescompac = NULL;
 	char *aux;
 
 	do{
-		size = strlen(tabela->vet[j].bin);
+		size = (tabela->vet[j].size_bin);
+		//printf("TAMANHO DA LETRA: %d\n", size);
 		aux = (char *)malloc(sizeof(char)*size);
 		for (i=0; i<size; i++){
+			//printf("K: %d\n", k);
 			aux[i] = textCompac[k];
+			//printf("CHAR k: %c\n", textCompac[k]);
+			//printf("CHAR: %c\n", aux[i]);
 			k++;
 		}
 		if(strcmp(aux,tabela->vet[j].bin)==0){
@@ -237,4 +243,5 @@ char *descompactarHuffman(char *textCompac, int sizeCompac, TABELA_HUFFMAN* tabe
 	}while(textCompac[k]=='1' || textCompac[k]=='0');
 
 	return textDescompac;
+	
 }
