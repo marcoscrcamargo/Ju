@@ -28,7 +28,7 @@ struct node{
 NO* buildHuffmanTree(char* text);
 NO* create_node(char letter);
 TABELA_HUFFMAN* criarTabelaHuffman();
-int compactarHuffman(char* text, char *textCompac, TABELA_HUFFMAN *tabela);
+int compactarHuffman(char* text, char **textCompac, TABELA_HUFFMAN **tabela);
 char *descompactarHuffman(char *textCompac, int sizeCompac, TABELA_HUFFMAN* tabela);
 
 #endif // _HUFFMAN_H_

@@ -13,7 +13,7 @@ int main(int argc, char *argv[]){
 	//le o texto que sera compactado
 	for(i = 0; (text[i] = getchar()) != '\n' && i < 10000; ++i);
 	text[i] = '\0';
-				
+	
 	//compacta o texto e modifica a tabela
 	int sizeCompac = compactarHuffman(text, &textCompac, &tabela);
 	//descompacta o texto baseado na tabela criada

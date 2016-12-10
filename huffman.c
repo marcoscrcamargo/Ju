@@ -170,41 +170,44 @@ NO* buildHuffmanTree(char* text){
 	
 {}*/
 
-int compactarHuffman(char* text, char *textCompac, TABELA_HUFFMAN *tabela){
+int compactarHuffman(char* text, char **textCompac, TABELA_HUFFMAN **tabela){
 
-	textCompac = NULL;
+	(*textCompac) = NULL;
 	int size=0, sizeCompac=0, count=0;
 	int i, j, k=0, l, lsize=0;
+	int tam = (int)strlen(text);
 
-	for (i=0; i<10; i++){
-		for(j=0; j<tabela->n_elements; j++){
-			if(text[i] == tabela->vet[j].letter){
-				lsize = tabela->vet[j].size_bin;
-				size += lsize;
-				if (size%8==0) sizeCompac++;
-				textCompac = (char *)realloc(textCompac, size*sizeof(char));
-				for (k=k; k<size; k++){
-					for(l=0; l<lsize; l++){
-						/* code */
-					}
-					textCompac[k] = tabela->vet[j].bin[l]; 
-				}
-			}
-		}
+	for (i=0; i<tam; i++){
+		printf("SEGURA RAPAZ\n");
+		for(j=0; j<(*tabela)->n_elements; j++){
+	    	if(text[i] == (*tabela)->vet[j].letter){
+	      		lsize = (*tabela)->vet[j].size_bin;
+	      		size += lsize;
+	        	if (size%8==0) sizeCompac++;
+	        	(*textCompac) = (char *)realloc((*textCompac), size*sizeof(char));
+	        	for (k=k; k<size; k++){
+	          		for(l=0; l<lsize; l++){
+	            		(*textCompac)[k] = (*tabela)->vet[j].bin[l];
+	            		//printf("%c\n", (*textCompac)[k]);
+	            		//exit(0);
+	          		} 
+	        	}
+	      	}
+	    }
 	}
 
 	if(size%8!=0){
-		do{
-			size++;
-			textCompac = (char *)realloc(textCompac, size*sizeof(char));
-			textCompac[size]='0';
-		}while(size%8!=0);
-		for (i=size-8; i<=size; i++){
-			if(textCompac[i]=='1') count++;		
-		}
-		textCompac = (char *)realloc(textCompac, size+1*sizeof(char));
-		textCompac[size+1]=(char)count;
-		return sizeCompac+=2;
+	    do{
+	    	size++;
+	        (*textCompac) = (char *)realloc((*textCompac), size*sizeof(char));
+	        (*textCompac)[size]='0';
+	    }while(size%8!=0);
+	    for (i=size-8; i<=size; i++){
+	        if((*textCompac)[i]=='1') count++;    
+	    }
+	    (*textCompac) = (char *)realloc((*textCompac), size+1*sizeof(char));
+	    (*textCompac)[size+1]=(char)count;
+	    return sizeCompac+=2;
 	} 
 	else return sizeCompac;
 }
