@@ -14,7 +14,9 @@ int main(int argc, char* argv[]){
 
 	// le o texto que sera compactado
 	for(i = 0;(text[i]=getchar())!='\n' && i<10000;++i);
-	
+	printf("TEXT: %s\n", text);
+	exit(0);
+
 	text[i]='\0';
 	
 	// compacta o texto e modifica a tabela

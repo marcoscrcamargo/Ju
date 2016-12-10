@@ -169,13 +169,13 @@ int compactarHuffman(char* text, char** textCompac, TABELA_HUFFMAN** tabela){
 	if(size%8!=0){
 	    do{
 	    	size++;
-	        (*textCompac) = (char *)realloc((*textCompac), size*sizeof(char));
+	        (*textCompac) = (char *)realloc((*textCompac), size+1*sizeof(char));
 	        (*textCompac)[size]='0';
 	    }while(size%8!=0);
 	    for (i=size-8; i<=size; i++){
 	        if((*textCompac)[i]=='1') count++;    
 	    }
-	    (*textCompac) = (char *)realloc((*textCompac), size+1*sizeof(char));
+	    (*textCompac) = (char *)realloc((*textCompac), size+2*sizeof(char));
 	    (*textCompac)[size+1]=(char)count;
 	    return sizeCompac+=2;
 	} 
@@ -192,6 +192,7 @@ char *descompactarHuffman(char *textCompac, int sizeCompac, TABELA_HUFFMAN* tabe
 		size = (tabela->vet[j]->size_bin);
 		//printf("TAMANHO DA LETRA: %d\n", size);
 		aux = (char *)malloc(sizeof(char)*size);
+		aux[size]='\0';
 		for (i=0; i<size; i++){
 			//printf("K: %d\n", k);
 			aux[i] = textCompac[k];
