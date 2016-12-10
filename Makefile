@@ -1,21 +1,17 @@
-# Makefile :: 
+#Makefile :: grafo
 
-# Search for .c source files
-SRC=$(wildcard *.c)
-# Search for .h header files
-DEPS=$(wildcard *.h)
-# Generate .o object files rules
-OBJ=$(foreach file, $(SRC), $(file:%.c=%.o))
+all: heapsort.o huffman.o trab4.o
+	 gcc -o T4 heapsort.o huffman.o trab4.o -lm -g -Wall
 
-all: main
-	gcc -o T4 huffman.o trab4.o heapsort.o -lm -g -Wall
+heapsort.o: heapsort.c
+	gcc -c heapsort.c -g
 
-%.o: %.c $(DEPS)
-	gcc -c -o $@ $< -lm -g -Wall -O2
+huffman.o: huffman.c
+	gcc -c huffman.c -g -O2
 
-main: $(OBJ)
-	gcc -o T4 huffman.o trab4.o heapsort.o -lm -g -Wall -O2
-
+trab4.o: trab4.c
+	gcc -c trab4.c -g
+	
 run:
 	./T4
 	
@@ -23,12 +19,9 @@ valgrind:
 	valgrind --leak-check=full --track-origins=yes ./T4
 	
 clean:
-	-rm -f T4 *.zip
+	rm *.o
 
-cleanobj:
-	-rm -f *.o
+zip:
+	zip Projeto huffman.c huffman.h heapsort.c heapsort.h trab4.c Makefile
 
-zip: clean cleanobj
-	zip Projeto *
-
-codes: all zip
+codes: all clean zip
